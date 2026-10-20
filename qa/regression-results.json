@@ -1,0 +1,102 @@
+{
+  "results": [
+    {
+      "name": "초기 부팅 및 26개 품목",
+      "status": "PASS"
+    },
+    {
+      "name": "22개 전체 메뉴 이동",
+      "status": "PASS"
+    },
+    {
+      "name": "대시보드 중복 제거와 지표 일치",
+      "status": "PASS"
+    },
+    {
+      "name": "메뉴 검색 및 초기화",
+      "status": "PASS"
+    },
+    {
+      "name": "대시보드 바로가기",
+      "status": "PASS"
+    },
+    {
+      "name": "제품 신규 등록 및 중복 방지",
+      "status": "PASS"
+    },
+    {
+      "name": "제품 수정 및 안전재고 저장",
+      "status": "PASS"
+    },
+    {
+      "name": "입고 및 출고 재고·이력 반영",
+      "status": "PASS"
+    },
+    {
+      "name": "재고 초과 출고 차단",
+      "status": "PASS"
+    },
+    {
+      "name": "재고 이력 있는 품목 삭제 보호",
+      "status": "PASS"
+    },
+    {
+      "name": "품목 검색",
+      "status": "PASS"
+    },
+    {
+      "name": "창고 이동 및 총재고 보존",
+      "status": "PASS"
+    },
+    {
+      "name": "발주 입고처리",
+      "status": "PASS"
+    },
+    {
+      "name": "매출 출고처리",
+      "status": "PASS"
+    },
+    {
+      "name": "업무 신규 등록 및 삭제",
+      "status": "PASS"
+    },
+    {
+      "name": "통합 물류 승인 요청 입고",
+      "status": "PASS"
+    },
+    {
+      "name": "재로드 저장 호환성 및 사용자 데이터 보존",
+      "status": "PASS"
+    },
+    {
+      "name": "동적 입력 접근성 이름",
+      "status": "PASS"
+    },
+    {
+      "name": "신규 구매요청 및 전자결재 승인",
+      "status": "PASS"
+    },
+    {
+      "name": "현장 자재 사용 및 원가 연동",
+      "status": "PASS"
+    },
+    {
+      "name": "JSON 백업 다운로드 생성",
+      "status": "PASS"
+    },
+    {
+      "name": "잘못된 JSON 복원 거부",
+      "status": "PASS"
+    },
+    {
+      "name": "기존 형식 백업 복원",
+      "status": "PASS"
+    },
+    {
+      "name": "미처리 JavaScript 오류 없음",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "alerts": 14
+}
