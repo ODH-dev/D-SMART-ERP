@@ -1,0 +1,112 @@
+[
+  {
+    "menu": "대시보드",
+    "heading": "대시보드",
+    "active": 1
+  },
+  {
+    "menu": "재고관리",
+    "heading": "재고관리",
+    "active": 1
+  },
+  {
+    "menu": "입출고관리",
+    "heading": "입출고관리",
+    "active": 1
+  },
+  {
+    "menu": "생산관리",
+    "heading": "🏭 생산관리",
+    "active": 1
+  },
+  {
+    "menu": "원자재관리",
+    "heading": "원자재관리",
+    "active": 1
+  },
+  {
+    "menu": "창고관리",
+    "heading": "창고관리",
+    "active": 1
+  },
+  {
+    "menu": "구매·발주관리",
+    "heading": "📋 구매·발주관리",
+    "active": 1
+  },
+  {
+    "menu": "거래처관리",
+    "heading": "🤝 거래처관리",
+    "active": 1
+  },
+  {
+    "menu": "매입·매출관리",
+    "heading": "💰 매입·매출관리",
+    "active": 1
+  },
+  {
+    "menu": "영업관리",
+    "heading": "📊 영업관리",
+    "active": 1
+  },
+  {
+    "menu": "인사관리",
+    "heading": "👥 인사관리",
+    "active": 1
+  },
+  {
+    "menu": "업무관리",
+    "heading": "📅 업무관리",
+    "active": 1
+  },
+  {
+    "menu": "문서관리",
+    "heading": "📁 문서관리",
+    "active": 1
+  },
+  {
+    "menu": "시스템관리",
+    "heading": "시스템관리",
+    "active": 1
+  },
+  {
+    "menu": "건설현장관리",
+    "heading": "🏗️ 건설현장관리",
+    "active": 1
+  },
+  {
+    "menu": "안전·품질관리",
+    "heading": "🦺 안전·품질관리",
+    "active": 1
+  },
+  {
+    "menu": "분석 리포트",
+    "heading": "📈 분석 리포트",
+    "active": 1
+  },
+  {
+    "menu": "통합 물류관리",
+    "heading": "🚚 통합 물류관리",
+    "active": 1
+  },
+  {
+    "menu": "현장 원가·예산관리",
+    "heading": "💵 현장 원가·예산관리",
+    "active": 1
+  },
+  {
+    "menu": "전자결재관리",
+    "heading": "📋 전자결재관리",
+    "active": 1
+  },
+  {
+    "menu": "경영분석",
+    "heading": "📈 경영분석",
+    "active": 1
+  },
+  {
+    "menu": "🔔 통합 알림센터 (6)",
+    "heading": "🔔 통합 알림센터",
+    "active": 1
+  }
+]
