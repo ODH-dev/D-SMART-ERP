@@ -4,7 +4,7 @@
   "private": true,
   "description": "Buildless ERP with optional DOM regression tests",
   "scripts": {
-    "test": "node tests/regression.cjs",
+    "test": "node tests/regression.cjs && node tests/operations.cjs",
     "preview": "python3 -m http.server 8080 --bind 127.0.0.1"
   },
   "devDependencies": {

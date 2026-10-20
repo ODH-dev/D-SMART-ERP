@@ -1,0 +1,139 @@
+{
+  "results": [
+    {
+      "name": "초기 마이그레이션과 재로드 멱등성",
+      "status": "PASS"
+    },
+    {
+      "name": "24개 전체 메뉴 단일 활성 화면",
+      "status": "PASS"
+    },
+    {
+      "name": "신규 발주와 고유 전표번호",
+      "status": "PASS"
+    },
+    {
+      "name": "승인 전 입고 버튼 없음",
+      "status": "PASS"
+    },
+    {
+      "name": "작성중 전표 수정과 버전 증가",
+      "status": "PASS"
+    },
+    {
+      "name": "승인 요청 및 원본 발주 상태 연동",
+      "status": "PASS"
+    },
+    {
+      "name": "반려 사유 필수 및 반려 처리",
+      "status": "PASS"
+    },
+    {
+      "name": "반려 후 재요청·승인",
+      "status": "PASS"
+    },
+    {
+      "name": "입고 시 본사·전체재고·원장 일괄 반영",
+      "status": "PASS"
+    },
+    {
+      "name": "입고 중복 처리 버튼 제거",
+      "status": "PASS"
+    },
+    {
+      "name": "전표 마감 및 수정 차단",
+      "status": "PASS"
+    },
+    {
+      "name": "취소 사유·반대 전표·재고 복구",
+      "status": "PASS"
+    },
+    {
+      "name": "취소 중복 처리 차단",
+      "status": "PASS"
+    },
+    {
+      "name": "취소 후 정정 전표와 원본 연결",
+      "status": "PASS"
+    },
+    {
+      "name": "이관된 승인 전표의 입고 원장 생성",
+      "status": "PASS"
+    },
+    {
+      "name": "원장 없는 기존 완료 전표 취소 차단",
+      "status": "PASS"
+    },
+    {
+      "name": "판매 전표 출고 및 취소 원복",
+      "status": "PASS"
+    },
+    {
+      "name": "본사 재고 부족 출고 차단 및 원자성",
+      "status": "PASS"
+    },
+    {
+      "name": "현장 이동 후 총재고 보존",
+      "status": "PASS"
+    },
+    {
+      "name": "현장 사용 시 재고·원가 동시 반영",
+      "status": "PASS"
+    },
+    {
+      "name": "현장 재고 부족 사용 차단",
+      "status": "PASS"
+    },
+    {
+      "name": "기존 품목 등록도 변경 이력 기록",
+      "status": "PASS"
+    },
+    {
+      "name": "담당 역할 저장·승인 작업 제한",
+      "status": "PASS"
+    },
+    {
+      "name": "납기 지연·내 전표 필터",
+      "status": "PASS"
+    },
+    {
+      "name": "현장 분석 실데이터 집계 및 기간 필터",
+      "status": "PASS"
+    },
+    {
+      "name": "수량·단가·날짜·금액 검증",
+      "status": "PASS"
+    },
+    {
+      "name": "첨부파일 저장 및 다운로드 연결",
+      "status": "PASS"
+    },
+    {
+      "name": "파일 크기 제한에서 저장 차단",
+      "status": "PASS"
+    },
+    {
+      "name": "저장공간 오류 시 전표·재고 원본 유지",
+      "status": "PASS"
+    },
+    {
+      "name": "사용자 입력 HTML 이스케이프",
+      "status": "PASS"
+    },
+    {
+      "name": "업무 이력 원본·변경본·사유 기록",
+      "status": "PASS"
+    },
+    {
+      "name": "전체 재고와 창고별 재고 정합성",
+      "status": "PASS"
+    },
+    {
+      "name": "미처리 JavaScript 오류 없음",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "passed": 33,
+  "total": 33
+}

@@ -147,12 +147,12 @@
 
     function monthlyChart(purchases, sales) {
         const records = [
-            ...purchases.map(p => ({
+            ...purchases.filter(p => !["취소", "반려"].includes(p.status)).map(p => ({
                 date: p.date,
                 amount: number(p.quantity) * number(p.price),
                 type: "purchase"
             })),
-            ...sales.map(s => ({
+            ...sales.filter(s => !["취소", "반려"].includes(s.status)).map(s => ({
                 date: s.date,
                 amount: number(s.quantity) * number(s.price),
                 type: "sales"
@@ -258,7 +258,7 @@
                 !["입고완료", "취소", "반려"].includes(r.status)
             ).length;
 
-        const salesAmount = sales.reduce(
+        const salesAmount = sales.filter(s => !["취소", "반려"].includes(s.status)).reduce(
             (sum, s) =>
                 sum + number(s.quantity) * number(s.price),
             0
@@ -304,7 +304,7 @@
 
         // ④ 최근 구매·발주 내역
         const orders = [
-            ...purchases.map(p => ({
+            ...purchases.filter(p => !["취소", "반려"].includes(p.status)).map(p => ({
                 date: p.date,
                 id: p.number,
                 partner: p.partner,
