@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D SMART ERP</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, "Apple SD Gothic Neo", sans-serif;
+    background: #f3f6fb;
+    color: #243247;
+}
+
+.sidebar {
+    width: 245px;
+    height: 100vh;
+    background: #14243b;
+    color: white;
+    position: fixed;
+    overflow-y: auto;
+    padding: 22px 15px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #60a5fa;
+    padding: 12px;
+    margin-bottom: 25px;
+}
+
+.sidebar button {
+    width: 100%;
+    display: block;
+    padding: 13px;
+    margin: 3px 0;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    color: #d5deeb;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+    background: #2563eb;
+    color: white;
+}
+
+.main {
+    margin-left: 245px;
+    padding: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 25px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 18px;
+}
+
+.card, .panel {
+    background: white;
+    padding: 23px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px #14243b0d;
+}
+
+.card h3 {
+    color: #64748b;
+    font-size: 14px;
+    margin: 0 0 15px;
+}
+
+.card strong {
+    font-size: 29px;
+    color: #2563eb;
+}
+
+.panel {
+    margin-top: 25px;
+}
+
+.panel h2 {
+    font-size: 19px;
+}
+
+input, select {
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    margin: 5px;
+    max-width: 100%;
+}
+
+.action {
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 18px;
+    cursor: pointer;
+}
+
+.action:hover {
+    background: #1d4ed8;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 13px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+th {
+    background: #f8fafc;
+    color: #475569;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.notice {
+    color: #64748b;
+    font-size: 13px;
+}
+
+@media(max-width: 700px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+    <div class="logo">D SMART ERP</div>
+
+    <button class="active" onclick="showPage('dashboard',this)">🏠 대시보드</button>
+    <button onclick="showPage('inventory',this)">📦 재고관리</button>
+    <button onclick="showPage('movement',this)">🚚 입출고관리</button>
+    <button onclick="showPage('production',this)">🏭 생산관리</button>
+    <button onclick="showPage('materials',this)">🧱 원자재관리</button>
+    <button onclick="showPage('warehouse',this)">🏬 창고관리</button>
+    <button onclick="showPage('purchase',this)">📋 구매·발주관리</button>
+    <button onclick="showPage('partners',this)">🤝 거래처관리</button>
+    <button onclick="showPage('sales',this)">💰 매입·매출관리</button>
+    <button onclick="showPage('business',this)">📊 영업관리</button>
+    <button onclick="showPage('employees',this)">👥 인사관리</button>
+    <button onclick="showPage('tasks',this)">📅 업무관리</button>
+    <button onclick="showPage('documents',this)">📁 문서관리</button>
+    <button onclick="showPage('settings',this)">⚙️ 시스템관리</button>
+
+    <p class="notice" style="padding:15px;color:#94a3b8">
+        D SMART ERP v1.0
+    </p>
+</div>
+
+<div class="main">
+
+    <div class="header">
+        <h1 id="pageTitle">대시보드</h1>
+        <span>관리자 · 로컬 테스트</span>
+    </div>
+
+    <div id="dashboard" class="page active">
+        <div class="cards">
+            <div class="card">
+                <h3>전체 등록 품목</h3>
+                <strong id="totalProducts">0</strong>
+            </div>
+
+            <div class="card">
+                <h3>전체 재고 수량</h3>
+                <strong id="totalStock">0</strong>
+            </div>
+
+            <div class="card">
+                <h3>누적 입고 수량</h3>
+                <strong id="totalIn">0</strong>
+            </div>
+
+            <div class="card">
+                <h3>누적 출고 수량</h3>
+                <strong id="totalOut">0</strong>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>최근 입출고 내역</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>일시</th>
+                            <th>제품명</th>
+                            <th>구분</th>
+                            <th>수량</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="inventory" class="page">
+        <div class="panel">
+            <h2>제품 등록</h2>
+
+            <form id="productForm">
+                <input id="productCode" placeholder="제품코드" required>
+                <input id="productName" placeholder="제품명" required>
+                <input id="productUnit" placeholder="단위 (EA, BOX 등)" required>
+                <button class="action" type="submit">제품 등록</button>
+            </form>
+        </div>
+
+        <div class="panel">
+            <h2>재고 현황</h2>
+            <input id="searchProduct" placeholder="제품 검색">
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>제품코드</th>
+                            <th>제품명</th>
+                            <th>단위</th>
+                            <th>현재 재고</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventoryTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="movement" class="page">
+        <div class="panel">
+            <h2>입출고 등록</h2>
+
+            <form id="movementForm">
+                <select id="movementProduct" required></select>
+
+                <select id="movementType">
+                    <option value="입고">입고</option>
+                    <option value="출고">출고</option>
+                </select>
+
+                <input
+                    id="movementQty"
+                    type="number"
+                    min="1"
+                    step="1"
+                    placeholder="수량"
+                    required
+                >
+
+                <button class="action" type="submit">
+                    입출고 등록
+                </button>
+            </form>
+        </div>
+
+        <div class="panel">
+            <h2>전체 입출고 내역</h2>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>일시</th>
+                            <th>제품코드</th>
+                            <th>제품명</th>
+                            <th>구분</th>
+                            <th>수량</th>
+                        </tr>
+                    </thead>
+                    <tbody id="movementTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="otherPage" class="page">
+        <div class="panel">
+            <h2 id="otherTitle"></h2>
+            <p>이 기능은 다음 개발 단계에서 추가됩니다.</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+const menuNames = {
+    dashboard: "대시보드",
+    inventory: "재고관리",
+    movement: "입출고관리",
+    production: "생산관리",
+    materials: "원자재관리",
+    warehouse: "창고관리",
+    purchase: "구매·발주관리",
+    partners: "거래처관리",
+    sales: "매입·매출관리",
+    business: "영업관리",
+    employees: "인사관리",
+    tasks: "업무관리",
+    documents: "문서관리",
+    settings: "시스템관리"
+};
+
+const storageKey = "d-smart-erp-v1";
+
+let data;
+
+try {
+    data = JSON.parse(localStorage.getItem(storageKey)) || {
+        products: [],
+        movements: []
+    };
+} catch {
+    data = { products: [], movements: [] };
+}
+
+function save() {
+    localStorage.setItem(storageKey, JSON.stringify(data));
+}
+
+function showPage(page, button) {
+    document.querySelectorAll(".page").forEach(el => {
+        el.classList.remove("active");
+    });
+
+    document.querySelectorAll(".sidebar button").forEach(el => {
+        el.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    const target = ["dashboard", "inventory", "movement"]
+        .includes(page) ? page : "otherPage";
+
+    document.getElementById(target).classList.add("active");
+    document.getElementById("pageTitle").textContent = menuNames[page];
+
+    if (target === "otherPage") {
+        document.getElementById("otherTitle").textContent = menuNames[page];
+    }
+
+    render();
+}
+
+function addCell(row, value) {
+    const cell = row.insertCell();
+    cell.textContent = value;
+}
+
+function render() {
+    const inventoryTable = document.getElementById("inventoryTable");
+    const movementTable = document.getElementById("movementTable");
+    const recentTable = document.getElementById("recentTable");
+    const productSelect = document.getElementById("movementProduct");
+
+    inventoryTable.replaceChildren();
+    movementTable.replaceChildren();
+    recentTable.replaceChildren();
+    productSelect.replaceChildren();
+
+    const search = document.getElementById("searchProduct")
+        .value.toLowerCase();
+
+    data.products
+        .filter(p =>
+            p.code.toLowerCase().includes(search) ||
+            p.name.toLowerCase().includes(search)
+        )
+        .forEach(p => {
+            const row = inventoryTable.insertRow();
+            addCell(row, p.code);
+            addCell(row, p.name);
+            addCell(row, p.unit);
+            addCell(row, p.stock);
+        });
+
+    data.products.forEach(p => {
+        const option = document.createElement("option");
+        option.value = p.code;
+        option.textContent = `${p.code} - ${p.name}`;
+        productSelect.appendChild(option);
+    });
+
+    const history = [...data.movements].reverse();
+
+    history.forEach((m, index) => {
+        const row = movementTable.insertRow();
+        addCell(row, m.date);
+        addCell(row, m.code);
+        addCell(row, m.name);
+        addCell(row, m.type);
+        addCell(row, m.qty);
+
+        if (index < 5) {
+            const recentRow = recentTable.insertRow();
+            addCell(recentRow, m.date);
+            addCell(recentRow, m.name);
+            addCell(recentRow, m.type);
+            addCell(recentRow, m.qty);
+        }
+    });
+
+    document.getElementById("totalProducts").textContent =
+        data.products.length.toLocaleString();
+
+    document.getElementById("totalStock").textContent =
+        data.products.reduce((sum, p) => sum + p.stock, 0).toLocaleString();
+
+    document.getElementById("totalIn").textContent =
+        data.movements
+            .filter(m => m.type === "입고")
+            .reduce((sum, m) => sum + m.qty, 0)
+            .toLocaleString();
+
+    document.getElementById("totalOut").textContent =
+        data.movements
+            .filter(m => m.type === "출고")
+            .reduce((sum, m) => sum + m.qty, 0)
+            .toLocaleString();
+}
+
+document.getElementById("productForm").addEventListener("submit", e => {
+    e.preventDefault();
+
+    const code = document.getElementById("productCode").value.trim();
+    const name = document.getElementById("productName").value.trim();
+    const unit = document.getElementById("productUnit").value.trim();
+
+    if (!code || !name || !unit) {
+        alert("모든 항목을 입력하세요.");
+        return;
+    }
+
+    if (data.products.some(p => p.code === code)) {
+        alert("이미 등록된 제품코드입니다.");
+        return;
+    }
+
+    data.products.push({
+        code,
+        name,
+        unit,
+        stock: 0
+    });
+
+    save();
+    render();
+    e.target.reset();
+
+    alert("제품이 등록되었습니다.");
+});
+
+document.getElementById("movementForm").addEventListener("submit", e => {
+    e.preventDefault();
+
+    const code = document.getElementById("movementProduct").value;
+    const type = document.getElementById("movementType").value;
+    const qty = Number(document.getElementById("movementQty").value);
+
+    const product = data.products.find(p => p.code === code);
+
+    if (!product) {
+        alert("제품을 먼저 등록하세요.");
+        return;
+    }
+
+    if (!Number.isSafeInteger(qty) || qty <= 0) {
+        alert("올바른 수량을 입력하세요.");
+        return;
+    }
+
+    if (type === "출고" && product.stock < qty) {
+        alert("재고가 부족하여 출고할 수 없습니다.");
+        return;
+    }
+
+    const nextStock = product.stock + (type === "입고" ? qty : -qty);
+
+    if (!Number.isSafeInteger(nextStock)) {
+        alert("처리할 수 없는 수량입니다.");
+        return;
+    }
+
+    product.stock = nextStock;
+
+    data.movements.push({
+        date: new Date().toLocaleString("ko-KR"),
+        code: product.code,
+        name: product.name,
+        type,
+        qty
+    });
+
+    save();
+    render();
+    e.target.reset();
+
+    alert(type + " 처리가 완료되었습니다.");
+});
+
+document.getElementById("searchProduct").addEventListener("input", render);
+// 건설현장 샘플 자재 25종
+
+const sampleMaterials = [
+    ["C001", "안전모", "EA", 60],
+    ["C002", "안전조끼", "EA", 80],
+    ["C003", "안전화", "켤레", 40],
+    ["C004", "작업장갑", "켤레", 250],
+    ["C005", "보안경", "EA", 70],
+    ["C006", "안전대", "SET", 25],
+    ["C007", "방진마스크", "EA", 300],
+    ["C008", "철근 D10", "본", 400],
+    ["C009", "철근 D13", "본", 350],
+    ["C010", "시멘트", "포", 180],
+    ["C011", "건축용 모래", "㎥", 25],
+    ["C012", "자갈", "㎥", 20],
+    ["C013", "구조용 각재", "본", 120],
+    ["C014", "합판 12mm", "장", 140],
+    ["C015", "거푸집 패널", "장", 90],
+    ["C016", "석고보드", "장", 150],
+    ["C017", "단열재", "장", 100],
+    ["C018", "방수시트", "롤", 45],
+    ["C019", "PVC 배관", "본", 100],
+    ["C020", "PVC 엘보", "EA", 180],
+    ["C021", "CD 전선관", "롤", 70],
+    ["C022", "전선 2.5SQ", "롤", 35],
+    ["C023", "콘센트", "EA", 100],
+    ["C024", "실리콘 실란트", "개", 120],
+    ["C025", "앙카볼트 M12", "EA", 250]
+];
+
+// 이미 등록된 품목은 중복 등록하지 않음
+
+sampleMaterials.forEach(item => {
+
+    const [code, name, unit, stock] = item;
+
+    const exists = data.products.some(
+        p => p.code === code
+    );
+
+    if (!exists) {
+
+        data.products.push({
+            code,
+            name,
+            unit,
+            stock
+        });
+
+        data.movements.push({
+            date: new Date().toLocaleString("ko-KR"),
+            code,
+            name,
+            type: "입고",
+            qty: stock
+        });
+    }
+});
+
+save();
+render();
+</script>
+<script>
+
+// ========================================
+// D SMART ERP 가상 거래처 및 직원 데이터
+// ========================================
+
+// 가상 거래처 8곳
+const demoPartners = [
+    ["T001", "한빛건설자재", "매입처", "철근, 시멘트", "정상"],
+    ["T002", "대한안전산업", "매입처", "안전모, 안전화", "정상"],
+    ["T003", "미래전기자재", "매입처", "전선, 전선관", "정상"],
+    ["T004", "동양배관산업", "매입처", "PVC 배관", "정상"],
+    ["T005", "중앙목재상사", "매입처", "합판, 각재", "정상"],
+    ["T006", "대성종합건설", "매출처", "건설자재", "정상"],
+    ["T007", "스마트건설", "매출처", "건축자재", "정상"],
+    ["T008", "태양종합상사", "매입·매출처", "종합자재", "정상"]
+];
+
+// 가상 직원 10명
+const demoEmployees = [
+    ["E001", "김민준", "경영지원팀", "부장", "본사"],
+    ["E002", "이서연", "인사총무팀", "과장", "본사"],
+    ["E003", "박지훈", "자재관리팀", "대리", "본사 창고"],
+    ["E004", "최유진", "구매관리팀", "대리", "본사"],
+    ["E005", "정현우", "물류관리팀", "과장", "물류센터"],
+    ["E006", "강민서", "생산관리팀", "대리", "생산공장"],
+    ["E007", "윤도현", "현장관리팀", "차장", "A건설현장"],
+    ["E008", "한지우", "현장관리팀", "대리", "B건설현장"],
+    ["E009", "오세훈", "영업관리팀", "과장", "본사"],
+    ["E010", "송하린", "회계관리팀", "사원", "본사"]
+];
+
+// 표 생성 함수
+function createDemoTable(headers, rows) {
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "table-wrap";
+
+    const table = document.createElement("table");
+
+    const thead = document.createElement("thead");
+    const headerRow = document.createElement("tr");
+
+    headers.forEach(title => {
+        const th = document.createElement("th");
+        th.textContent = title;
+        headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+
+    rows.forEach(item => {
+        const tr = document.createElement("tr");
+
+        item.forEach(value => {
+            const td = document.createElement("td");
+            td.textContent = value;
+            tr.appendChild(td);
+        });
+
+        tbody.appendChild(tr);
+    });
+
+    table.appendChild(tbody);
+    wrapper.appendChild(table);
+
+    return wrapper;
+}
+
+// 기존 ERP 메뉴 기능 유지
+const originalShowPage = window.showPage;
+
+window.showPage = function(page, button) {
+
+    originalShowPage(page, button);
+
+    const panel = document.querySelector("#otherPage .panel");
+    const notice = panel.querySelector("p");
+
+    let demoArea = document.getElementById("demoArea");
+
+    if (!demoArea) {
+        demoArea = document.createElement("div");
+        demoArea.id = "demoArea";
+        panel.appendChild(demoArea);
+    }
+
+    demoArea.replaceChildren();
+
+    if (page === "partners" || page === "employees") {
+
+        notice.style.display = "none";
+
+        const info = document.createElement("p");
+        info.className = "notice";
+        info.textContent = "※ 화면 확인용 가상 데이터입니다.";
+        demoArea.appendChild(info);
+
+        if (page === "partners") {
+
+            demoArea.appendChild(
+                createDemoTable(
+                    ["거래처코드", "거래처명", "구분", "취급품목", "상태"],
+                    demoPartners
+                )
+            );
+
+        }
+
+        if (page === "employees") {
+
+            demoArea.appendChild(
+                createDemoTable(
+                    ["사번", "이름", "부서", "직급", "근무지"],
+                    demoEmployees
+                )
+            );
+
+        }
+
+    } else {
+        notice.style.display = "";
+    }
+
+};
+
+</script>
+<script>
+// ======================================
+// D SMART ERP v1.1 데이터 백업 및 복원
+// ======================================
+
+(function () {
+
+    const panel = document.querySelector("#otherPage .panel");
+
+    const backupBox = document.createElement("div");
+    backupBox.id = "backupBox";
+    backupBox.style.display = "none";
+
+    backupBox.innerHTML = `
+        <hr style="margin:25px 0;border:1px solid #e2e8f0">
+
+        <h2>💾 데이터 백업 및 복원</h2>
+
+        <p class="notice">
+            제품, 재고, 입출고 기록을 백업하고 복원합니다.
+        </p>
+
+        <div style="margin-top:25px">
+            <h3>① 데이터 백업</h3>
+            <p>현재 ERP 데이터를 JSON 파일로 저장합니다.</p>
+
+            <button class="action" id="backupBtn">
+                💾 데이터 백업하기
+            </button>
+        </div>
+
+        <div style="margin-top:35px">
+            <h3>② 데이터 복원</h3>
+            <p>이전에 저장한 백업 파일을 선택하세요.</p>
+
+            <input
+                type="file"
+                id="restoreFile"
+                accept=".json,application/json"
+            >
+
+            <br><br>
+
+            <button class="action" id="restoreBtn">
+                📂 데이터 복원하기
+            </button>
+
+            <p class="notice">
+                주의: 복원하면 현재 재고와 입출고 기록이
+                백업 파일의 데이터로 변경됩니다.
+            </p>
+        </div>
+    `;
+
+    panel.appendChild(backupBox);
+
+    // 기존 메뉴 기능 유지
+    const previousShowPage = window.showPage;
+
+    window.showPage = function (page, button) {
+
+        previousShowPage(page, button);
+
+        backupBox.style.display =
+            page === "settings" ? "block" : "none";
+
+        const notice = panel.querySelector("p");
+
+        if (notice) {
+            notice.style.display =
+                page === "settings" ? "none" :
+                (page === "partners" || page === "employees")
+                    ? "none" : "";
+        }
+    };
+
+    // 데이터 백업
+    document.getElementById("backupBtn")
+        .addEventListener("click", function () {
+
+            try {
+                const backup = {
+                    app: "D SMART ERP",
+                    version: 1,
+                    backupDate: new Date().toISOString(),
+                    data: data
+                };
+
+                const json = JSON.stringify(backup, null, 2);
+
+                const blob = new Blob([json], {
+                    type: "application/json;charset=utf-8"
+                });
+
+                const url = URL.createObjectURL(blob);
+
+                const link = document.createElement("a");
+
+                link.href = url;
+
+                const today = new Date()
+                    .toISOString()
+                    .slice(0, 10);
+
+                link.download =
+                    "D_SMART_ERP_BACKUP_" + today + ".json";
+
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+
+                setTimeout(function () {
+                    URL.revokeObjectURL(url);
+                }, 1000);
+
+                alert("백업 파일 저장을 요청했습니다. 다운로드 폴더를 확인하세요.");
+
+            } catch (error) {
+                alert("백업 중 오류가 발생했습니다: " + error.message);
+            }
+        });
+
+    // 데이터 복원
+    document.getElementById("restoreBtn")
+        .addEventListener("click", async function () {
+
+            const fileInput =
+                document.getElementById("restoreFile");
+
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert("백업 파일을 먼저 선택하세요.");
+                return;
+            }
+
+            try {
+
+                if (file.size > 5 * 1024 * 1024) {
+                    throw new Error("파일 크기가 5MB를 초과합니다.");
+                }
+
+                const text = await file.text();
+                const backup = JSON.parse(text);
+
+                if (
+                    backup.app !== "D SMART ERP" ||
+                    backup.version !== 1 ||
+                    !backup.data ||
+                    !Array.isArray(backup.data.products) ||
+                    !Array.isArray(backup.data.movements)
+                ) {
+                    throw new Error("올바른 ERP 백업 파일이 아닙니다.");
+                }
+
+                const restored = backup.data;
+
+                const validProducts = restored.products.every(p =>
+                    p &&
+                    typeof p.code === "string" &&
+                    p.code.trim() !== "" &&
+                    typeof p.name === "string" &&
+                    typeof p.unit === "string" &&
+                    Number.isSafeInteger(p.stock) &&
+                    p.stock >= 0
+                );
+
+                const validMovements = restored.movements.every(m =>
+                    m &&
+                    typeof m.date === "string" &&
+                    typeof m.code === "string" &&
+                    typeof m.name === "string" &&
+                    ["입고", "출고"].includes(m.type) &&
+                    Number.isSafeInteger(m.qty) &&
+                    m.qty > 0
+                );
+
+                const codes = restored.products.map(p => p.code);
+
+                if (
+                    !validProducts ||
+                    !validMovements ||
+                    new Set(codes).size !== codes.length
+                ) {
+                    throw new Error("백업 데이터 형식에 오류가 있습니다.");
+                }
+
+                const message =
+                    "현재 데이터를 백업 파일로 교체할까요?\n\n" +
+                    "복원할 품목: " + restored.products.length + "개\n" +
+                    "입출고 기록: " + restored.movements.length + "건\n\n" +
+                    "기존 데이터가 덮어써집니다.";
+
+                if (!confirm(message)) {
+                    return;
+                }
+
+                // 저장에 성공한 경우에만 현재 데이터 변경
+                localStorage.setItem(
+                    storageKey,
+                    JSON.stringify(restored)
+                );
+
+                data = restored;
+
+                render();
+
+                alert("데이터 복원이 완료되었습니다.");
+
+            } catch (error) {
+                alert("복원 실패: " + error.message);
+            } finally {
+                fileInput.value = "";
+            }
+        });
+
+})();
+</script>
+<script>
+// ==========================================
+// D SMART ERP 2023~2024 시연용 날짜 설정
+// ==========================================
+
+(function () {
+
+    const migrationKey = "d-smart-erp-demo-dates-2024-v1";
+    const demoToday = "2024-10-18";
+
+    // ERP 화면 기준일
+    document.querySelector(".header span").textContent =
+        "관리자 · 2024.10.18 기준 (시연 데이터)";
+
+    // 기존 입출고 기록 날짜 변경 (최초 1회)
+    if (!localStorage.getItem(migrationKey)) {
+
+        const updated = JSON.parse(JSON.stringify(data));
+
+        const others = updated.movements.filter(
+            m => m.name !== "테스트 제품"
+        );
+
+        const start = Date.UTC(2023, 1, 7);
+        const end = Date.UTC(2024, 8, 20);
+
+        others.forEach((m, i) => {
+
+            const ratio = others.length > 1
+                ? i / (others.length - 1)
+                : 0;
+
+            const time = start + (end - start) * ratio;
+
+            const date = new Date(time)
+                .toISOString()
+                .slice(0, 10);
+
+            m.date = date + " 09:00:00";
+        });
+
+        updated.movements.forEach(m => {
+
+            if (m.name === "테스트 제품") {
+
+                if (m.type === "입고") {
+                    m.date = "2023-01-16 09:15:00";
+                }
+
+                if (m.type === "출고") {
+                    m.date = "2024-10-18 15:40:00";
+                }
+            }
+        });
+
+        // 날짜순 정렬
+        updated.movements.sort(
+            (a, b) => a.date.localeCompare(b.date)
+        );
+
+        // 저장 성공 후 현재 데이터 변경
+        localStorage.setItem(
+            storageKey,
+            JSON.stringify(updated)
+        );
+
+        localStorage.setItem(migrationKey, "1");
+
+        data = updated;
+
+        render();
+    }
+
+    // =====================================
+    // 신규 입출고 날짜 선택 기능
+    // =====================================
+
+    const form = document.getElementById("movementForm");
+
+    const dateInput = document.createElement("input");
+
+    dateInput.type = "date";
+    dateInput.id = "movementDate";
+    dateInput.min = "2023-01-01";
+    dateInput.max = "2024-10-31";
+    dateInput.value = demoToday;
+    dateInput.defaultValue = demoToday;
+    dateInput.required = true;
+    dateInput.title = "입출고 처리 날짜";
+
+    const submitButton = form.querySelector(
+        'button[type="submit"]'
+    );
+
+    form.insertBefore(dateInput, submitButton);
+
+    // 기존 입출고 처리 대신 시연 날짜 적용
+    form.addEventListener("submit", function (e) {
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        const code = document.getElementById(
+            "movementProduct"
+        ).value;
+
+        const type = document.getElementById(
+            "movementType"
+        ).value;
+
+        const qty = Number(document.getElementById(
+            "movementQty"
+        ).value);
+
+        const selectedDate = dateInput.value;
+
+        const product = data.products.find(
+            p => p.code === code
+        );
+
+        if (!product) {
+            alert("제품을 선택하세요.");
+            return;
+        }
+
+        if (!Number.isSafeInteger(qty) || qty <= 0) {
+            alert("올바른 수량을 입력하세요.");
+            return;
+        }
+
+        if (
+            selectedDate < "2023-01-01" ||
+            selectedDate > "2024-10-31"
+        ) {
+            alert("2023~2024년 날짜를 선택하세요.");
+            return;
+        }
+
+        if (type === "출고" && product.stock < qty) {
+            alert("재고가 부족합니다.");
+            return;
+        }
+
+        const nextStock = product.stock +
+            (type === "입고" ? qty : -qty);
+
+        if (!Number.isSafeInteger(nextStock)) {
+            alert("처리할 수 없는 수량입니다.");
+            return;
+        }
+
+        product.stock = nextStock;
+
+        data.movements.push({
+            date: selectedDate + " 09:00:00",
+            code: product.code,
+            name: product.name,
+            type,
+            qty
+        });
+
+        data.movements.sort(
+            (a, b) => a.date.localeCompare(b.date)
+        );
+
+        save();
+        render();
+
+        form.reset();
+        dateInput.value = demoToday;
+
+        alert(type + " 처리가 완료되었습니다.");
+
+    }, true);
+
+})();
+</script>
+<script>
+// ======================================
+// D SMART ERP v1.3
+// 창고 및 건설현장 자재 이동관리
+// ======================================
+
+(function () {
+
+    // 가상 창고 및 현장
+    const warehouses = [
+        ["W001", "본사 자재창고", "중앙창고"],
+        ["W002", "A건설현장", "건설현장"],
+        ["W003", "B건설현장", "건설현장"],
+        ["W004", "C건설현장", "건설현장"],
+        ["W005", "물류센터", "물류창고"]
+    ];
+
+    const panel = document.querySelector("#otherPage .panel");
+
+    const box = document.createElement("div");
+    box.id = "warehouseBox";
+    box.style.display = "none";
+
+    box.innerHTML = `
+        <h2>🏬 창고 및 건설현장 관리</h2>
+
+        <p class="notice">
+            2023~2024년 건설현장 운영 시연 데이터
+        </p>
+
+        <h3>① 등록된 창고 및 현장</h3>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>코드</th>
+                        <th>창고·현장명</th>
+                        <th>구분</th>
+                    </tr>
+                </thead>
+                <tbody id="warehouseList"></tbody>
+            </table>
+        </div>
+
+        <hr style="margin:30px 0;border:1px solid #e2e8f0">
+
+        <h3>② 현장별 자재 이동</h3>
+
+        <form id="transferForm">
+
+            <p>이동 날짜</p>
+            <input
+                type="date"
+                id="transferDate"
+                value="2024-10-18"
+                min="2023-01-01"
+                max="2024-10-31"
+                required
+            >
+
+            <p>이동할 자재</p>
+            <select id="transferProduct" required></select>
+
+            <p>출발 창고</p>
+            <select id="transferFrom" required></select>
+
+            <p>도착 창고</p>
+            <select id="transferTo" required></select>
+
+            <p>이동 수량</p>
+            <input
+                type="number"
+                id="transferQty"
+                min="1"
+                step="1"
+                placeholder="이동 수량"
+                required
+            >
+
+            <br><br>
+
+            <button class="action" type="submit">
+                🚚 자재 이동 처리
+            </button>
+
+        </form>
+
+        <hr style="margin:30px 0;border:1px solid #e2e8f0">
+
+        <h3>③ 창고별 자재 재고</h3>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>창고·현장</th>
+                        <th>제품명</th>
+                        <th>재고</th>
+                        <th>단위</th>
+                    </tr>
+                </thead>
+                <tbody id="warehouseStockTable"></tbody>
+            </table>
+        </div>
+
+        <h3 style="margin-top:35px">④ 최근 자재 이동 내역</h3>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>날짜</th>
+                        <th>제품명</th>
+                        <th>출발</th>
+                        <th>도착</th>
+                        <th>수량</th>
+                    </tr>
+                </thead>
+                <tbody id="transferHistory"></tbody>
+            </table>
+        </div>
+    `;
+
+    panel.appendChild(box);
+
+    function warehouseName(code) {
+        const w = warehouses.find(w => w[0] === code);
+        return w ? w[1] : code;
+    }
+
+    // 기존 재고를 최초에 본사 창고에 배정
+    // 이후 일반 입출고 수량 변경은 본사 창고에 반영
+    function syncStocks() {
+
+        const next = JSON.parse(JSON.stringify(data));
+
+        if (!next.locationStocks) {
+            next.locationStocks = {};
+        }
+
+        if (!Array.isArray(next.locationTransfers)) {
+            next.locationTransfers = [];
+        }
+
+        let changed = false;
+
+        next.products.forEach(p => {
+
+            if (!next.locationStocks[p.code]) {
+
+                next.locationStocks[p.code] = {
+                    W001: p.stock,
+                    W002: 0,
+                    W003: 0,
+                    W004: 0,
+                    W005: 0
+                };
+
+                changed = true;
+                return;
+            }
+
+            const stocks = next.locationStocks[p.code];
+
+            const allocated = warehouses.reduce(
+                (sum, w) => sum + (stocks[w[0]] || 0),
+                0
+            );
+
+            const difference = p.stock - allocated;
+
+            // 일반 입출고는 본사 창고 기준으로 반영
+            if (
+                difference !== 0 &&
+                (stocks.W001 || 0) + difference >= 0
+            ) {
+                stocks.W001 = (stocks.W001 || 0) + difference;
+                changed = true;
+            }
+        });
+
+        if (changed) {
+            localStorage.setItem(
+                storageKey,
+                JSON.stringify(next)
+            );
+        }
+
+        data = next;
+    }
+
+    // 창고 및 제품 선택 목록
+    warehouses.forEach(w => {
+
+        const row = document
+            .getElementById("warehouseList")
+            .insertRow();
+
+        w.forEach(value => addCell(row, value));
+
+        ["transferFrom", "transferTo"].forEach(id => {
+
+            const option = document.createElement("option");
+
+            option.value = w[0];
+            option.textContent = w[1];
+
+            document.getElementById(id).appendChild(option);
+        });
+    });
+
+    document.getElementById("transferTo").value = "W002";
+
+    function renderWarehouse() {
+
+        syncStocks();
+
+        const productSelect =
+            document.getElementById("transferProduct");
+
+        productSelect.replaceChildren();
+
+        data.products.forEach(p => {
+
+            const option = document.createElement("option");
+
+            option.value = p.code;
+            option.textContent = p.name + " (" + p.unit + ")";
+
+            productSelect.appendChild(option);
+        });
+
+        const stockTable =
+            document.getElementById("warehouseStockTable");
+
+        stockTable.replaceChildren();
+
+        data.products.forEach(p => {
+
+            const stocks = data.locationStocks[p.code] || {};
+
+            warehouses.forEach(w => {
+
+                const qty = stocks[w[0]] || 0;
+
+                if (qty <= 0) return;
+
+                const row = stockTable.insertRow();
+
+                addCell(row, w[1]);
+                addCell(row, p.name);
+                addCell(row, qty);
+                addCell(row, p.unit);
+            });
+        });
+
+        const historyTable =
+            document.getElementById("transferHistory");
+
+        historyTable.replaceChildren();
+
+        [...data.locationTransfers]
+            .reverse()
+            .slice(0, 20)
+            .forEach(t => {
+
+                const row = historyTable.insertRow();
+
+                addCell(row, t.date);
+                addCell(row, t.name);
+                addCell(row, warehouseName(t.from));
+                addCell(row, warehouseName(t.to));
+                addCell(row, t.qty);
+            });
+    }
+
+    // 실제 창고 간 자재 이동
+    document.getElementById("transferForm")
+        .addEventListener("submit", function(e) {
+
+            e.preventDefault();
+
+            try {
+
+                syncStocks();
+
+                const code =
+                    document.getElementById("transferProduct").value;
+
+                const from =
+                    document.getElementById("transferFrom").value;
+
+                const to =
+                    document.getElementById("transferTo").value;
+
+                const qty = Number(
+                    document.getElementById("transferQty").value
+                );
+
+                const date =
+                    document.getElementById("transferDate").value;
+
+                const product = data.products.find(
+                    p => p.code === code
+                );
+
+                if (!product) {
+                    alert("제품을 선택하세요.");
+                    return;
+                }
+
+                if (from === to) {
+                    alert("출발 창고와 도착 창고가 같습니다.");
+                    return;
+                }
+
+                if (!Number.isSafeInteger(qty) || qty <= 0) {
+                    alert("올바른 수량을 입력하세요.");
+                    return;
+                }
+
+                if (
+                    date < "2023-01-01" ||
+                    date > "2024-10-31"
+                ) {
+                    alert("2023~2024년 날짜를 선택하세요.");
+                    return;
+                }
+
+                const stocks = data.locationStocks[code];
+
+                const allocated = warehouses.reduce(
+                    (sum, w) => sum + (stocks[w[0]] || 0),
+                    0
+                );
+
+                if (allocated !== product.stock) {
+                    alert(
+                        "창고별 재고와 전체 재고가 일치하지 않습니다.\n" +
+                        "데이터를 확인한 후 다시 처리하세요."
+                    );
+                    return;
+                }
+
+                if ((stocks[from] || 0) < qty) {
+                    alert("출발 창고의 재고가 부족합니다.");
+                    return;
+                }
+
+                // 복사본에서 이동 처리
+                const next = JSON.parse(JSON.stringify(data));
+
+                next.locationStocks[code][from] -= qty;
+
+                next.locationStocks[code][to] =
+                    (next.locationStocks[code][to] || 0) + qty;
+
+                next.locationTransfers.push({
+                    date,
+                    code,
+                    name: product.name,
+                    from,
+                    to,
+                    qty
+                });
+
+                // 저장에 성공한 경우에만 현재 데이터 교체
+                localStorage.setItem(
+                    storageKey,
+                    JSON.stringify(next)
+                );
+
+                data = next;
+
+                renderWarehouse();
+                render();
+
+                document.getElementById("transferQty").value = "";
+
+                alert("자재 이동이 완료되었습니다.");
+
+            } catch (error) {
+
+                alert("자재 이동 실패: " + error.message);
+            }
+        });
+
+    // 기존 메뉴 기능 유지
+    const previousShowPage = window.showPage;
+
+    window.showPage = function(page, button) {
+
+        previousShowPage(page, button);
+
+        box.style.display =
+            page === "warehouse" ? "block" : "none";
+
+        if (page === "warehouse") {
+
+            const notice = panel.querySelector(":scope > p");
+
+            if (notice) {
+                notice.style.display = "none";
+            }
+
+            try {
+                renderWarehouse();
+            } catch (error) {
+                alert("창고 데이터 오류: " + error.message);
+            }
+        }
+    };
+
+})();
+</script>
+</body>
+</html>
