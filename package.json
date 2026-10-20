@@ -1,0 +1,16 @@
+{
+  "name": "d-smart-erp-enterprise",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Buildless ERP with optional DOM regression tests",
+  "scripts": {
+    "test": "node tests/regression.cjs",
+    "preview": "python3 -m http.server 8080 --bind 127.0.0.1"
+  },
+  "devDependencies": {
+    "jsdom": "30.1.3"
+  },
+  "engines": {
+    "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
+  }
+}
