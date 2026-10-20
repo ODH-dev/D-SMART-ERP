@@ -1,0 +1,110 @@
+[
+  {
+    "file": ".github/workflows/split-css.yml",
+    "original_sha256": "c78d74398b1479a550ba49837d072676b40dfa8f3d67a77bf2c638a91fd90873",
+    "delivered_sha256": "c78d74398b1479a550ba49837d072676b40dfa8f3d67a77bf2c638a91fd90873",
+    "unchanged": true
+  },
+  {
+    "file": ".github/workflows/split-js.yml",
+    "original_sha256": "09bcbc01fbda6891dfab27188ade7f6217d4392f79b2f2d4ba142103c0f1f40c",
+    "delivered_sha256": "09bcbc01fbda6891dfab27188ade7f6217d4392f79b2f2d4ba142103c0f1f40c",
+    "unchanged": true
+  },
+  {
+    "file": "README.md",
+    "original_sha256": "4bb696646dd88c95caad22b2826fd267a74ee2894e0f86623cfa0ea284a260a1",
+    "delivered_sha256": "4bb696646dd88c95caad22b2826fd267a74ee2894e0f86623cfa0ea284a260a1",
+    "unchanged": true
+  },
+  {
+    "file": "css/dashboard-v2.css",
+    "original_sha256": "9dd9b409c3cd460bf3709bd26bc1ccfb501f205c69d97a39c5c3cd9b469b4399",
+    "delivered_sha256": "9dd9b409c3cd460bf3709bd26bc1ccfb501f205c69d97a39c5c3cd9b469b4399",
+    "unchanged": true
+  },
+  {
+    "file": "css/style.css",
+    "original_sha256": "b6617ec36d9a6a5c7e4d48c4b8f4b62cd4899c4ce108e2f60439f90b0fdabe76",
+    "delivered_sha256": "b6617ec36d9a6a5c7e4d48c4b8f4b62cd4899c4ce108e2f60439f90b0fdabe76",
+    "unchanged": true
+  },
+  {
+    "file": "index.html",
+    "original_sha256": "9956c915d33db720f2354c3ea7555e4143c69ed9deb845a9e346009e49ed1556",
+    "delivered_sha256": "fb39d4203923b7d8815ab91536ea2d60f5f93258d020340aa824698cb7b725ff",
+    "unchanged": false
+  },
+  {
+    "file": "js/dashboard-v2.js",
+    "original_sha256": "11dcddb44f4d6a89ecf1474a0e9274e579108f84a7d7f7f1f43444a84f5f246c",
+    "delivered_sha256": "2cfcb743b693db320f965e0dad198f23b1b1a2bdbca9b5e8e9f48256b508356b",
+    "unchanged": false
+  },
+  {
+    "file": "js/erp-01.js",
+    "original_sha256": "def60b5d24a642e36c5906fad63746deecee63e36d6b8d69cea76731d6cf9ebb",
+    "delivered_sha256": "def60b5d24a642e36c5906fad63746deecee63e36d6b8d69cea76731d6cf9ebb",
+    "unchanged": true
+  },
+  {
+    "file": "js/erp-02.js",
+    "original_sha256": "c73e44550f41b138a3855b9111f0c73aea12b92ddccf17422ca3b315b3858dc8",
+    "delivered_sha256": "c73e44550f41b138a3855b9111f0c73aea12b92ddccf17422ca3b315b3858dc8",
+    "unchanged": true
+  },
+  {
+    "file": "js/erp-03.js",
+    "original_sha256": "d1460f02086ee57b141f875dc0473936b25d34bc2348bdd83026f41c7a2e05ff",
+    "delivered_sha256": "d1460f02086ee57b141f875dc0473936b25d34bc2348bdd83026f41c7a2e05ff",
+    "unchanged": true
+  },
+  {
+    "file": "js/erp-04.js",
+    "original_sha256": "2a0ec44aac0c39d5731152cf8fbae85157e946fe583eaa00d26a19a4d0da4599",
+    "delivered_sha256": "2a0ec44aac0c39d5731152cf8fbae85157e946fe583eaa00d26a19a4d0da4599",
+    "unchanged": true
+  },
+  {
+    "file": "js/erp-05.js",
+    "original_sha256": "d0893143d25258fde9d3c2ab3ad75d85805917fbee2d26847f9f07f825cc4375",
+    "delivered_sha256": "d0893143d25258fde9d3c2ab3ad75d85805917fbee2d26847f9f07f825cc4375",
+    "unchanged": true
+  },
+  {
+    "file": "js/erp-06.js",
+    "original_sha256": "f9d10818b61ffbb18bcd765fb5d0ce535bb749b5f1ca88c3e2a509a6d315f9d1",
+    "delivered_sha256": "f9d10818b61ffbb18bcd765fb5d0ce535bb749b5f1ca88c3e2a509a6d315f9d1",
+    "unchanged": true
+  },
+  {
+    "file": "js/erp-07.js",
+    "original_sha256": "fb23050f75257ed66beef4f5c6306fe19890812caf5612b567d8d2d25d0ea351",
+    "delivered_sha256": "fb23050f75257ed66beef4f5c6306fe19890812caf5612b567d8d2d25d0ea351",
+    "unchanged": true
+  },
+  {
+    "file": "js/erp-08.js",
+    "original_sha256": "4197bfc401c5d54737c03b749aa2e901ca51aec7c40ba02b3c2c031b25f8e7be",
+    "delivered_sha256": "4197bfc401c5d54737c03b749aa2e901ca51aec7c40ba02b3c2c031b25f8e7be",
+    "unchanged": true
+  },
+  {
+    "file": "js/erp-09.js",
+    "original_sha256": "f2407a7e2da86e4ce93d9b9988e4a598692a44aad0618cc0c089da03b4f3f8ef",
+    "delivered_sha256": "f2407a7e2da86e4ce93d9b9988e4a598692a44aad0618cc0c089da03b4f3f8ef",
+    "unchanged": true
+  },
+  {
+    "file": "js/erp-10.js",
+    "original_sha256": "318cadb7602399f0beb6110a8d8e137567879ea180dec849bc64cddd6c72e71e",
+    "delivered_sha256": "318cadb7602399f0beb6110a8d8e137567879ea180dec849bc64cddd6c72e71e",
+    "unchanged": true
+  },
+  {
+    "file": "js/erp-11.js",
+    "original_sha256": "38c7fa39f1d490d9efa0d30c255243c37f8c0d97fce2103c9984555aa3a9fcbd",
+    "delivered_sha256": "38c7fa39f1d490d9efa0d30c255243c37f8c0d97fce2103c9984555aa3a9fcbd",
+    "unchanged": true
+  }
+]
