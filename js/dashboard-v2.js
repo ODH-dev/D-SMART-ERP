@@ -18,38 +18,38 @@
 
     box.innerHTML = `
         <div class="v2-heading">
-            <h2>📊 통합 경영 대시보드</h2>
-            <p>재고 · 구매 · 매출 · 생산 · 현장 예산 통합 현황</p>
+            <span class="eyebrow">BUSINESS OVERVIEW</span><h2>업무의 흐름을 한눈에</h2>
+            <p>재고부터 현장 예산까지, 등록된 데이터를 바탕으로 운영 현황을 확인하세요.</p><div class="dashboard-shortcuts"><button data-open="inventory">재고 현황 보기 ↗</button><button data-open="erp19-approval">전자결재 확인 ↗</button></div>
         </div>
 
         <div class="v2-grid">
             <div class="v2-card">
-                <span>📦 전체 재고</span>
+                <span>전체 재고 수량</span>
                 <strong id="v2Stock">0</strong>
                 <small>현재 보유 수량</small>
             </div>
 
             <div class="v2-card">
-                <span>📋 미완료 구매</span>
+                <span>처리 대기 구매</span>
                 <strong id="v2Purchase">0</strong>
                 <small>구매요청 및 발주</small>
             </div>
 
             <div class="v2-card">
-                <span>💰 등록 매출</span>
+                <span>누적 등록 매출</span>
                 <strong id="v2Sales">0</strong>
                 <small>등록된 매출 거래금액</small>
             </div>
 
             <div class="v2-card">
-                <span>🏭 진행 중 생산</span>
+                <span>진행 중 생산</span>
                 <strong id="v2Production">0</strong>
                 <small>미완료 생산 작업</small>
             </div>
         </div>
 
         <div class="panel">
-            <h2>📈 월별 매출·매입 분석</h2>
+            <h2>월별 매출·매입 분석</h2>
             <p class="notice">
                 등록된 거래 기록 기준 · 시연 데이터
             </p>
@@ -58,18 +58,18 @@
 
         <div class="v2-columns">
             <div class="panel">
-                <h2>⚠️ 재고 부족 품목</h2>
+                <h2>재고 보충 필요</h2>
                 <div id="v2Warnings"></div>
             </div>
 
             <div class="panel">
-                <h2>📋 최근 구매·발주 내역</h2>
+                <h2>최근 구매·발주</h2>
                 <div id="v2Orders"></div>
             </div>
         </div>
 
         <div class="panel">
-            <h2>🏗️ 현장별 예산 사용 현황</h2>
+            <h2>현장별 예산 집행</h2>
             <div id="v2Budgets"></div>
             <p class="notice">
                 ※ 집행금액에는 시연용 초기 기준금액이 포함됩니다.
