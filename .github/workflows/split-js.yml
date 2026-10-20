@@ -1,0 +1,107 @@
+name: D SMART ERP JavaScript Separation
+
+on:
+  push:
+    branches:
+      - v2-development-from-main
+    paths:
+      - '.github/workflows/split-js.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  split-javascript:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: v2-development-from-main
+
+      - name: Separate JavaScript
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          html_path = Path("index.html")
+          html = html_path.read_text(encoding="utf-8")
+
+          pattern = re.compile(
+              r'<script\b([^>]*)>(.*?)</script\s*>',
+              re.IGNORECASE | re.DOTALL
+          )
+
+          scripts = list(pattern.finditer(html))
+
+          if not scripts:
+              raise SystemExit("No inline scripts found")
+
+          if any(m.group(1).strip() for m in scripts):
+              raise SystemExit(
+                  "Script attributes detected. Manual review required."
+              )
+
+          js_dir = Path("js")
+
+          paths = [
+              js_dir / f"erp-{i:02}.js"
+              for i in range(1, len(scripts) + 1)
+          ]
+
+          if any(path.exists() for path in paths):
+              raise SystemExit(
+                  "JavaScript files already exist. Aborting."
+              )
+
+          js_dir.mkdir(exist_ok=True)
+
+          counter = 0
+
+          def replace_script(match):
+              global counter
+
+              counter += 1
+
+              filename = f"erp-{counter:02}.js"
+              path = js_dir / filename
+
+              path.write_text(
+                  match.group(2),
+                  encoding="utf-8"
+              )
+
+              return f'<script src="./js/{filename}"></script>'
+
+          updated_html = pattern.sub(
+              replace_script,
+              html
+          )
+
+          html_path.write_text(
+              updated_html,
+              encoding="utf-8"
+          )
+
+          print(f"Separated {counter} JavaScript blocks")
+          PY
+
+      - name: Check JavaScript Syntax
+        run: |
+          for file in js/erp-*.js; do
+            node --check "$file"
+          done
+
+      - name: Commit Changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add index.html js/
+
+          if ! git diff --cached --quiet; then
+            git commit -m "D SMART ERP v2.0 - JavaScript Separation"
+            git push origin HEAD:v2-development-from-main
+          fi
