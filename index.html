@@ -6,12 +6,13 @@
 <title>D SMART ERP v2.0</title>
 <link rel="stylesheet" href="./css/style.css">
 <link rel="stylesheet" href="./css/dashboard-v2.css">
+<link rel="stylesheet" href="./css/enterprise.css">
 </head>
 
 <body>
 
 <div class="sidebar">
-    <div class="logo">D SMART ERP</div>
+    <div class="logo"><b class="brand-mark">D</b><span>D SMART<small>ERP · ENTERPRISE 2.0</small></span></div>
 
     <button class="active" onclick="showPage('dashboard',this)">🏠 대시보드</button>
     <button onclick="showPage('inventory',this)">📦 재고관리</button>
@@ -35,9 +36,9 @@
 
 <div class="main">
 
-    <div class="header">
+    <a class="skip-link" href="#workspace">본문 바로가기</a><div class="utility-bar"><span>D SMART ERP <em>/</em> Enterprise workspace</span><span><i></i> 브라우저 로컬 저장 <b class="avatar">AD</b> 관리자</span></div><div id="workspace" tabindex="-1" class="header">
         <h1 id="pageTitle">대시보드</h1>
-        <span>관리자 · 로컬 테스트</span>
+        <span class="environment">로컬 데이터 · 시연 환경</span>
     </div>
 
     <div id="dashboard" class="page active">
@@ -212,5 +213,6 @@
 <!-- D SMART ERP v2.0 Dashboard -->
 <script src="./js/dashboard-v2.js"></script>
 
+<script src="./js/enterprise.js"></script>
 </body>
 </html>
