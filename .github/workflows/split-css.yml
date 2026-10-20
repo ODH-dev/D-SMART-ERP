@@ -1,0 +1,97 @@
+name: D SMART ERP CSS Separation
+
+on:
+  push:
+    branches:
+      - v2-development-from-main
+    paths:
+      - '.github/workflows/split-css.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  split-css:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract CSS
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          html_path = Path("index.html")
+          css_path = Path("css/style.css")
+
+          html = html_path.read_text(encoding="utf-8")
+
+          pattern = re.compile(
+              r"<style\b[^>]*>(.*?)</style\s*>",
+              re.IGNORECASE | re.DOTALL
+          )
+
+          styles = [
+              match.group(1).strip()
+              for match in pattern.finditer(html)
+          ]
+
+          if not styles:
+              raise SystemExit("No CSS blocks found.")
+
+          css_path.parent.mkdir(
+              parents=True,
+              exist_ok=True
+          )
+
+          existing = (
+              css_path.read_text(encoding="utf-8")
+              if css_path.exists()
+              else ""
+          )
+
+          combined = (
+              existing.rstrip()
+              + "\n\n"
+              + "\n\n".join(styles)
+              + "\n"
+          )
+
+          css_path.write_text(
+              combined,
+              encoding="utf-8"
+          )
+
+          html = pattern.sub("", html)
+
+          link = '<link rel="stylesheet" href="./css/style.css">'
+
+          if link not in html:
+              html = html.replace(
+                  "</head>",
+                  link + "\n</head>",
+                  1
+              )
+
+          html_path.write_text(
+              html,
+              encoding="utf-8"
+          )
+
+          print(f"Extracted {len(styles)} CSS blocks.")
+          PY
+
+      - name: Commit CSS separation
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add index.html css/style.css
+
+          if ! git diff --cached --quiet; then
+            git commit -m "D SMART ERP v2.0 - CSS Separation"
+            git push origin HEAD:${GITHUB_REF_NAME}
+          fi
