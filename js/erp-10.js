@@ -292,7 +292,7 @@
         intro.appendChild(make("p", c.desc));
         intro.appendChild(make(
             "p",
-            "조회 기준일: 2024.10.18 · 2023~2024년 포트폴리오 시연 데이터",
+            "",
             "erp18-note"
         ));
         root.appendChild(intro);
@@ -395,9 +395,7 @@
 
         summary.appendChild(make(
             "p",
-            "위 상세 현황은 포트폴리오 설명을 위한 가상 예시입니다. " +
-            "기존 ERP의 등록·수정·삭제 기능과 별도로 표시되며, " +
-            "재고 및 실제 거래 집계에 자동 반영되지 않습니다.",
+            "",
             "erp18-note"
         ));
 

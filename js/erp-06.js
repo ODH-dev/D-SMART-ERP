@@ -138,19 +138,19 @@
     resetArea.innerHTML = `
         <hr style="margin:30px 0;border:1px solid #e2e8f0">
 
-        <h3>③ 포트폴리오 시연 데이터 초기화</h3>
+        <h3>③ 데이터 초기화</h3>
 
         <p class="notice">
             자재 26종, 입출고 기록 및 창고별 재고를
-            최초 시연 상태로 복원합니다.
+            기본 상태로 복원합니다.
         </p>
 
         <button class="action" id="demoResetBtn">
-            🔄 시연 데이터 초기화
+            🔄 데이터 초기화
         </button>
 
         <p class="notice">
-            이 기능은 현재 브라우저의 데이터만 초기화합니다.
+            초기화 전에 데이터 백업을 권장합니다.
         </p>
     `;
 
@@ -160,15 +160,15 @@
         .addEventListener("click", function () {
 
             const ok = confirm(
-                "시연 데이터를 초기 상태로 복원할까요?\n\n" +
-                "현재 브라우저의 변경된 데이터는 사라집니다."
+                "데이터를 기본 상태로 복원할까요?\n\n" +
+                "현재 저장된 변경 사항은 사라집니다."
             );
 
             if (!ok) return;
 
             try {
                 resetDemoData();
-                alert("시연 데이터 초기화가 완료되었습니다.");
+                alert("데이터 초기화가 완료되었습니다.");
             } catch (error) {
                 alert("초기화 실패: " + error.message);
             }

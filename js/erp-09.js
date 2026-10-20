@@ -281,7 +281,7 @@
         panel.appendChild(element("h2", config.title));
         panel.appendChild(element(
             "p",
-            "2023~2024년 포트폴리오 시연 데이터 · 현재 브라우저에 저장됩니다.",
+            "",
             "erp-v17-note"
         ));
 
@@ -372,7 +372,7 @@
 
                 if (type === "date" &&
                     (value < "2023-01-01" || value > "2024-10-31")) {
-                    alert("시연 기간 내 날짜를 입력하세요.");
+                    alert("등록 가능 기간(2023-01-01~2024-10-31) 내 날짜를 입력하세요.");
                     return;
                 }
 
@@ -669,7 +669,7 @@
 
         panel.appendChild(element(
             "p",
-            "※ 시연용 데이터이며, 발주·판매 금액은 등록 기록 기준입니다.",
+            "발주·판매 금액은 등록 기록 기준입니다.",
             "erp-v17-note"
         ));
 

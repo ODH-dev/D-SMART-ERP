@@ -40,6 +40,11 @@
         if (target) target.click();
     }));
     function polish() {
+        document.querySelectorAll('.page td').forEach(cell => {
+            if (cell.childElementCount === 0 && cell.textContent.includes('관리자(시연)')) {
+                cell.textContent = cell.textContent.replaceAll('관리자(시연)', '관리자');
+            }
+        });
         buttons.forEach(button => {
             const clean = button.textContent.replace(/^[^가-힣A-Za-z0-9]+/u, '').trim();
             if (clean !== button.textContent) button.textContent = clean;

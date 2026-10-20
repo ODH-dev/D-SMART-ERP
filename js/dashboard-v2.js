@@ -51,7 +51,7 @@
         <div class="panel">
             <h2>월별 매출·매입 분석</h2>
             <p class="notice">
-                등록된 거래 기록 기준 · 시연 데이터
+                등록된 거래 기록 기준
             </p>
             <div id="v2Chart"></div>
         </div>
@@ -72,7 +72,7 @@
             <h2>현장별 예산 집행</h2>
             <div id="v2Budgets"></div>
             <p class="notice">
-                ※ 집행금액에는 시연용 초기 기준금액이 포함됩니다.
+                
             </p>
         </div>
     `;

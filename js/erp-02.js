@@ -96,7 +96,7 @@ window.showPage = function(page, button) {
 
         const info = document.createElement("p");
         info.className = "notice";
-        info.textContent = "※ 화면 확인용 가상 데이터입니다.";
+        info.textContent = "";
         demoArea.appendChild(info);
 
         if (page === "partners") {

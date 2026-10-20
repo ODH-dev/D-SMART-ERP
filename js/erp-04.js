@@ -10,7 +10,7 @@
 
     // ERP 화면 기준일
     document.querySelector(".header span").textContent =
-        "관리자 · 2024.10.18 기준 (시연 데이터)";
+        "관리자";
 
     // 기존 입출고 기록 날짜 변경 (최초 1회)
     if (!localStorage.getItem(migrationKey)) {
